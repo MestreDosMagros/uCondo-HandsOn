@@ -1,0 +1,34 @@
+version: "3.9"
+services:      
+  ucondo-api:
+    image: ucondo
+    container_name: ucondo-api
+    build:
+      context: .
+      dockerfile: ./src/Api/Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - ucondo-network
+    depends_on:
+      - ucondo-db
+    
+  ucondo-db:
+    image: mysql:8.4
+    container_name: ucondo-db
+    restart: always
+    command: [--max_allowed_packet=1G, --innodb_log_file_size=1G]
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=ucondo
+    networks:
+      - ucondo-network
+
+networks:
+  ucondo-network:
+    driver: bridge
