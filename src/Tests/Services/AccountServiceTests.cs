@@ -208,7 +208,7 @@ public sealed class AccountServiceTests
         var result = await accountService.CreateAsync(request);
 
         // Assert
-        Assert.IsInstanceOfType(result, typeof(Ok<CreateAccountResponse>));
+        Assert.IsInstanceOfType(result, typeof(Created<CreateAccountResponse>));
         accountRepositoryMoq.Verify(r => r.CreateAsync(It.IsAny<Account>()), Times.Once);
         accountRepositoryMoq.Verify(r => r.SaveChangesAsync(), Times.Once);
     }

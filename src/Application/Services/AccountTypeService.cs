@@ -94,7 +94,7 @@ public sealed class AccountTypeService(IAccountTypeRepository accountTypeReposit
 
     public async Task<IResult> GetAsync(GetAccountTypeRequest request)
     {
-        var result = await accountRepository.GetAsync(request.Id);
+        var result = await accountTypeRepository.GetAsync(request.Id);
 
         return result is not null
             ? Results.Ok(new GetAccountTypeResponse(result.Id, result.Name, result.Description))

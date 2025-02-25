@@ -182,12 +182,17 @@ public sealed class AccountService(IAccountRepository accountRepository, IAccoun
     {
         if (request.AccountId is null)
         {
+            if (!accountRepository.ListAsNoTracking().Any())
+            {
+                return Results.Ok(new GetNextCodeResponse("1"));
+            }
+
             var allCodes = accountRepository.ListAsNoTracking()
                 .ToList()
-                .ToDictionary(x => x.Code, x =>  Convert.ToInt32(x.Code.Code.Replace(".", "")));
+                .ToDictionary(x => x.Code, x => Convert.ToInt32(x.Code.Code.Replace(".", "")));
 
             var smallestMissing = FindSmallestMissingNumber(allCodes.Values.ToList());
-            
+
             return Results.Ok(new GetNextCodeResponse(smallestMissing.ToString()));
         }
 

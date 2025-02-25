@@ -1,4 +1,5 @@
-﻿using Application.Contracts;
+﻿using System.Globalization;
+using Application.Contracts;
 using Application.Validators;
 using FluentValidation.TestHelper;
 
@@ -11,8 +12,9 @@ public sealed class CreateAccountRequestValidatorTests
 
     [TestInitialize]
     public void Setup()
-    {
+    {       
         validator = new CreateAccountRequestValidator();
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
     }
 
     [TestMethod]
