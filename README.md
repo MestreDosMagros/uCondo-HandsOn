@@ -37,7 +37,7 @@ DELETE: /account-types/{id}
 
 ## Testes
 
-1. Na pasta src/Api rodar o comando `dotnet test`
+1. Na pasta raiz do projeto rodar o comando `dotnet test`
 
 ## Rodando a API com Docker
 
